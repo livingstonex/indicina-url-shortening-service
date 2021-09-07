@@ -25,7 +25,8 @@ exports.encodeURL = asyncHandler(async (req, res, next) => {
     shortUrl: response.short,
   }
 
-  return res.created({ data: encodedUrl, message: 'Url created successfully.' });
+    // return res.created({ data: encodedUrl, message: 'Url created successfully.' });
+    return res.status(201).json({ status: 'ok', message: 'Url created successfully.', data: encodedUrl });
 });
 
 /**
@@ -57,7 +58,8 @@ exports.decodeUrl = asyncHandler(async (req, res, next) => {
     fullUrl: shortUrl.full
   }
 
-  return res.ok({ data: decodedUrl  })
+  return res.status(200).json({ status: 'ok', data: decodedUrl });
+  // return res.ok({ data: decodedUrl })
 });
 
 /**
@@ -81,6 +83,7 @@ exports.statistics = asyncHandler(async (req, res, next) => {
     clicks: shortUrl.clicks,
   }
 
-  return res.ok({ data: stat })
+  return res.status(200).json({ status: 'ok', data: stat });
+  // return res.ok({ data: stat })
 });
 
