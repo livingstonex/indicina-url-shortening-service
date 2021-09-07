@@ -1,12 +1,12 @@
 {
-  "name": "divercity-backend",
+  "name": "indicina-service",
   "version": "1.0.0",
   "description": "divercity test backend",
   "main": "server.js",
   "scripts": {
     "start": "NODE_ENV=production node server",
     "dev": "nodemon server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
     "divercity"
@@ -14,11 +14,15 @@
   "author": "livingstone",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "colors": "^1.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "mocha": "^9.1.1",
     "mongoose": "^5.13.7",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"

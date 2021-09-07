@@ -7,20 +7,21 @@ const errorHandler = require('./middleware/error');
 
 // Load env files
 dotenv.config({ path: './config/config.env' });
+const AppMiddleware = require('./middleware/app');
 
 // Connect to Database
 connectDB();
 
 // Route files
-const departments = require('./routes/departments');
-const teams = require('./routes/teams');
-const users = require('./routes/users');
+const url = require('./routes/url');
 
 const app = express();
 
 // Body Parser
 app.use(express.json());
 
+// Response middleware
+app.use(AppMiddleware.InjectResponseBody);
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
@@ -32,14 +33,12 @@ app.get('/healthcheck', (req, res) => {
 });
 
 // Mount routers
-app.use('/api/v1/departments', departments);
-app.use('/api/v1/teams', teams);
-app.use('/api/v1/users', users);
+app.use('/api/v1', url);
 
 // Error handler middleware
 app.use(errorHandler);
 
-const PORT = 9000; // process.env.PORT || 9000;
+const PORT = 8000; // process.env.PORT || 9000;
 
 const server = app.listen(PORT, () => {
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.blue);
@@ -50,4 +49,6 @@ process.on('unhandledRejection', (err, promise) => {
 
   // Close server and exit process
   server.close(() => process.exit(1));
-})
+});
+
+module.exports = server;
